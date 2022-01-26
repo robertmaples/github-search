@@ -31,3 +31,9 @@ Implemented react query and handling of select dropdown.
 
 - Handle search input
 
+Refreshing of query completed, search input implemented (without throttling for rate limit).
+
+- Refactoring code base
+- Implement repo search logic
+- Build out results UI
+
