@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import styled from 'styled-components';
 // @ts-ignore
 import GithubLogo from './resources/github-logo.png';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
+enum SearchSpace {
+  USERS,
+  REPOS,
+}
+
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [searchSpace, setSearchSpace] = useState<SearchSpace>(SearchSpace.USERS);
+
+  const handleSearchSpace = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchSpace(Number(event.target.value));
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <Page>
@@ -23,14 +34,14 @@ const App = () => {
               </SearchDescriptor>
               <div>
                 <Input type={'search'} placeholder="Start typing to search .." />
-                <Dropdown>
-                  <option>Users</option>
-                  <option>Repositories</option>
+                <Dropdown onChange={handleSearchSpace}>
+                  <option value={SearchSpace.USERS}>Users</option>
+                  <option value={SearchSpace.REPOS}>Repositories</option>
                 </Dropdown>
               </div>
             </div>
           </Search>
-          <ResultsView searchStr="robertmaples" />
+          <ResultsView searchStr="robertmaples" searchSpace={searchSpace} />
         </Container>
       </Page>
     </QueryClientProvider>
@@ -41,11 +52,16 @@ export default App;
 
 interface IProps {
   searchStr: string;
+  searchSpace: SearchSpace;
 }
 // TODO: type query data
-const ResultsView: React.FC<IProps> = ({ searchStr }) => {
+const ResultsView: React.FC<IProps> = ({ searchStr, searchSpace }) => {
+  const searchSpaceStr = searchSpace === SearchSpace.USERS ? 'users' : 'repos';
+
+  console.log('searchSpace', searchSpace, 'searchStr', searchStr, 'searchSpaceStr', searchSpaceStr);
+
   const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () =>
-    fetch(`https://api.github.com/search/users?q=${searchStr}`).then((res) => res.json()),
+    fetch(`https://api.github.com/search/${searchSpaceStr}?q=${searchStr}`).then((res) => res.json()),
   );
 
   if (isLoading) return <div>Loading...</div>;
