@@ -18,6 +18,12 @@ eslint due to project size.
 
 1/26
 Finished Search UI, dealt with package dependency issues when
-installing React Query.
+installing Redux Query.
 
-- Install and implement react query.
+- Install and implement redux query.
+
+Decided use react query for fetching API data. Redux Query is incompatible
+with the latest version of React (17) and doesn't appear to be actively
+maintained; last commit was 15 months ago on a config, and 2 years ago for
+meaningful source code commits.
+

@@ -3,36 +3,61 @@ import './App.css';
 import styled from 'styled-components';
 // @ts-ignore
 import GithubLogo from './resources/github-logo.png';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Page>
-      <Container>
-        <Search>
-          <div>
-            <SearchDescriptor>
-              <Logo src={GithubLogo} />
-              <div>
-                <Title>GitHub Searcher</Title>
-                <Subtitle>Search users or repositories below</Subtitle>
-              </div>
-            </SearchDescriptor>
+    <QueryClientProvider client={queryClient}>
+      <Page>
+        <Container>
+          <Search>
             <div>
-              <Input type={'search'} placeholder="Start typing to search .." />
-              <Dropdown>
-                <option>Users</option>
-                <option>Repositories</option>
-              </Dropdown>
+              <SearchDescriptor>
+                <Logo src={GithubLogo} />
+                <div>
+                  <Title>GitHub Searcher</Title>
+                  <Subtitle>Search users or repositories below</Subtitle>
+                </div>
+              </SearchDescriptor>
+              <div>
+                <Input type={'search'} placeholder="Start typing to search .." />
+                <Dropdown>
+                  <option>Users</option>
+                  <option>Repositories</option>
+                </Dropdown>
+              </div>
             </div>
-          </div>
-        </Search>
-        <Results>Results</Results>
-      </Container>
-    </Page>
+          </Search>
+          <ResultsView />
+        </Container>
+      </Page>
+    </QueryClientProvider>
   );
 };
 
 export default App;
+
+// TODO: type query data
+const ResultsView = () => {
+  const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () =>
+    fetch('https://api.github.com/repos/tannerlinsley/react-query').then((res) => res.json()),
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.description}</p>
+      <strong>👀 {data.subscribers_count}</strong> <strong>✨ {data.stargazers_count}</strong>{' '}
+      <strong>🍴 {data.forks_count}</strong>
+    </div>
+  );
+};
 
 const Page = styled.div`
   width: 100%;
