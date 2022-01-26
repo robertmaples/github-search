@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import styled from 'styled-components';
 // @ts-ignore
@@ -14,9 +14,13 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [searchSpace, setSearchSpace] = useState<SearchSpace>(SearchSpace.USERS);
+  const [searchStr, setSearchStr] = useState<string>('');
 
   const handleSearchSpace = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchSpace(Number(event.target.value));
+  };
+  const handleSearchStr = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchStr(event.target.value);
   };
 
   return (
@@ -33,7 +37,7 @@ const App = () => {
                 </div>
               </SearchDescriptor>
               <div>
-                <Input type={'search'} placeholder="Start typing to search .." />
+                <Input onChange={handleSearchStr} type={'search'} placeholder="Start typing to search .." />
                 <Dropdown onChange={handleSearchSpace}>
                   <option value={SearchSpace.USERS}>Users</option>
                   <option value={SearchSpace.REPOS}>Repositories</option>
@@ -41,7 +45,7 @@ const App = () => {
               </div>
             </div>
           </Search>
-          <ResultsView searchStr="robertmaples" searchSpace={searchSpace} />
+          <ResultsView searchStr={searchStr} searchSpace={searchSpace} />
         </Container>
       </Page>
     </QueryClientProvider>
@@ -50,25 +54,24 @@ const App = () => {
 
 export default App;
 
+function getUsers(search: string): Promise<Response> {
+  return fetch(`https://api.github.com/search/users?q=${search}`).then((res) => res.json());
+}
+
 interface IProps {
   searchStr: string;
   searchSpace: SearchSpace;
 }
-// TODO: type query data
 const ResultsView: React.FC<IProps> = ({ searchStr, searchSpace }) => {
-  const searchSpaceStr = searchSpace === SearchSpace.USERS ? 'users' : 'repos';
+  useEffect(() => {
+    console.log('useEffect');
+  }, [searchStr, searchSpace]);
 
-  console.log('searchSpace', searchSpace, 'searchStr', searchStr, 'searchSpaceStr', searchSpaceStr);
-
-  const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () =>
-    fetch(`https://api.github.com/search/${searchSpaceStr}?q=${searchStr}`).then((res) => res.json()),
-  );
+  const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () => getUsers(searchStr));
 
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error: {error.message}</div>;
-
-  console.log(data);
 
   return (
     <div>
