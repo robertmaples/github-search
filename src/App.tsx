@@ -57,30 +57,39 @@ export default App;
 function getUsers(search: string): Promise<Response> {
   return fetch(`https://api.github.com/search/users?q=${search}`).then((res) => res.json());
 }
+function getRepos(search: string): Promise<Response> {
+  return fetch(`https://api.github.com/search/repos?q=${search}`).then((res) => res.json());
+}
 
+interface IRepos {
+  data: Object;
+}
+interface IUsers {
+  data: Object;
+}
 interface IProps {
   searchStr: string;
   searchSpace: SearchSpace;
 }
 const ResultsView: React.FC<IProps> = ({ searchStr, searchSpace }) => {
-  useEffect(() => {
-    console.log('useEffect');
-  }, [searchStr, searchSpace]);
-
-  const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () => getUsers(searchStr));
-
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <div>
-      <h1>{data.name}</h1>
-      <p>{data.description}</p>
-      <strong>👀 {data.subscribers_count}</strong> <strong>✨ {data.stargazers_count}</strong>{' '}
-      <strong>🍴 {data.forks_count}</strong>
+      <UsersView searchStr={searchStr} />
     </div>
   );
+};
+
+interface IUsersViewProps {
+  searchStr: string;
+}
+const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
+  const { isLoading, error, data } = useQuery<any, Error, any>(searchStr, () => getUsers(searchStr));
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred while fetching users: {error.message}</div>;
+
+  console.log('isLoading', isLoading, 'error', error, 'data', data);
+  return <div>{data.name}</div>;
 };
 
 const Page = styled.div`
