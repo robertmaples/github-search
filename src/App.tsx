@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import styled from 'styled-components';
 // @ts-ignore
@@ -45,7 +45,7 @@ const App = () => {
               </div>
             </div>
           </Search>
-          <ResultsView searchStr={searchStr} searchSpace={searchSpace} />
+          <ResultsView searchSpace={searchSpace} searchStr={searchStr} />
         </Container>
       </Page>
     </QueryClientProvider>
@@ -64,32 +64,60 @@ function getRepos(search: string): Promise<Response> {
 interface IRepos {
   data: Object;
 }
-interface IUsers {
-  data: Object;
+interface IUserSearch {
+  incomplete_results: boolean;
+  items: IUser[];
+  total_count: number;
+}
+interface IUser {
+  avatar_url: string;
+  events_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  gravatar_id: string;
+  html_url: string;
+  id: number;
+  login: string;
+  node_id: string;
+  organizations_url: string;
+  received_events_url: string;
+  repos_url: string;
+  score: number;
+  site_admin: boolean;
+  starred_url: string;
+  subscriptions_url: string;
+  type: string;
+  url: string;
 }
 interface IProps {
   searchStr: string;
   searchSpace: SearchSpace;
 }
 const ResultsView: React.FC<IProps> = ({ searchStr, searchSpace }) => {
-  return (
-    <div>
-      <UsersView searchStr={searchStr} />
-    </div>
-  );
+  if (searchStr.length === 0) return <div>Results</div>;
+
+  return searchSpace === SearchSpace.USERS ? <UsersView searchStr={searchStr} /> : <div>Repo View</div>;
 };
 
 interface IUsersViewProps {
   searchStr: string;
 }
 const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
-  const { isLoading, error, data } = useQuery<any, Error, any>(searchStr, () => getUsers(searchStr));
+  const { isLoading, error, data } = useQuery<any, Error, IUserSearch>(searchStr, () => getUsers(searchStr));
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred while fetching users: {error.message}</div>;
+  if (error) return <div>An error occurred while fetching users.{error.message}</div>;
+  if (!data) return <div>Data not available for this search.</div>;
 
-  console.log('isLoading', isLoading, 'error', error, 'data', data);
-  return <div>{data.name}</div>;
+  return (
+    <div>
+      Results!
+      {data.items.map((user) => (
+        <div>{user.login}</div>
+      ))}
+    </div>
+  );
 };
 
 const Page = styled.div`
