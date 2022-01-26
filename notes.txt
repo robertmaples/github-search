@@ -1,0 +1,23 @@
+High-level plan
+1) Create UI
+2) Get call
+3) Connect data to UI
+
+Questions
+ - CSS in JS, includes styled components?
+ - Is npm or yarn used for package management?
+ 
+1/24
+- Add linting, auto format on save (vscode)
+
+1/25
+Finished styling search descriptor, added prettier and left out
+eslint due to project size.
+
+- Finish Search UI
+
+1/26
+Finished Search UI, dealt with package dependency issues when
+installing React Query.
+
+- Install and implement react query.
