@@ -30,7 +30,7 @@ const App = () => {
               </div>
             </div>
           </Search>
-          <ResultsView />
+          <ResultsView searchStr="robertmaples" />
         </Container>
       </Page>
     </QueryClientProvider>
@@ -39,15 +39,20 @@ const App = () => {
 
 export default App;
 
+interface IProps {
+  searchStr: string;
+}
 // TODO: type query data
-const ResultsView = () => {
+const ResultsView: React.FC<IProps> = ({ searchStr }) => {
   const { isLoading, error, data } = useQuery<any, Error, any>('repoData', () =>
-    fetch('https://api.github.com/repos/tannerlinsley/react-query').then((res) => res.json()),
+    fetch(`https://api.github.com/search/users?q=${searchStr}`).then((res) => res.json()),
   );
 
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error: {error.message}</div>;
+
+  console.log(data);
 
   return (
     <div>
