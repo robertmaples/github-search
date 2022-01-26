@@ -1,8 +1,8 @@
-import React from "react";
-import "./App.css";
-import styled from "styled-components";
+import React from 'react';
+import './App.css';
+import styled from 'styled-components';
 // @ts-ignore
-import GithubLogo from "./resources/github-logo.png";
+import GithubLogo from './resources/github-logo.png';
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
               </div>
             </SearchDescriptor>
             <div>
-              <Input type={"search"} placeholder="Start typing to search .." />
+              <Input type={'search'} placeholder="Start typing to search .." />
               <Dropdown>
                 <option>Users</option>
                 <option>Repositories</option>
