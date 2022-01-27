@@ -1,7 +1,8 @@
 High-level plan
-1) Create UI
+1) Create Input UI
 2) Get call
 3) Connect data to UI
+4) Built out Result UI
 
 Questions
  - CSS in JS, includes styled components?
@@ -33,7 +34,6 @@ Implemented react query and handling of select dropdown.
 
 Refreshing of query completed, search input implemented (without throttling for rate limit).
 
-- Refactoring code base
-- Implement repo search logic
+x - Refactoring code base 
+x - Implement repo search logic
 - Build out results UI
-

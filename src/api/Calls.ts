@@ -3,5 +3,5 @@ export function getUsers(search: string): Promise<Response> {
 }
 
 export function getRepos(search: string): Promise<Response> {
-  return fetch(`https://api.github.com/search/repos?q=${search}`).then((res) => res.json());
+  return fetch(`https://api.github.com/search/repositories?q=${search}`).then((res) => res.json());
 }
