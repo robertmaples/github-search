@@ -20,27 +20,52 @@ const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
   if (!data) return <div>Data not available for this search.</div>;
 
   return (
-    <Card>
+    <Container>
       {data.items.map((user, index) => (
-        <div key={index}>
-          <Avatar src={user.avatar_url} alt="user avatar" />
-          <div>{user.login}</div>
-          <div>Score: {user.score}</div>
-          <a href={user.html_url}>{user.html_url}</a>
-        </div>
+        <RowItem>
+          <Card key={index}>
+            <Avatar src={user.avatar_url} alt="user avatar" />
+            <h2>{user.login}</h2>
+            <Score>Score: {user.score}</Score>
+            <a href={user.html_url}>{user.html_url}</a>
+          </Card>
+        </RowItem>
       ))}
-    </Card>
+    </Container>
   );
 };
 
 export default UsersView;
 
-const Card = styled.div`
+const Container = styled.div`
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 `;
+const RowItem = styled.div`
+  width: 30%;
+  margin-bottom: 50px;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+`;
+const Card = styled.div`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+`;
 const Avatar = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
+`;
+const Score = styled.div`
+  font-size: 11pt;
+  margin-bottom: 10px;
 `;

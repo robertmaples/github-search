@@ -42,8 +42,10 @@ const Page = styled.div`
   justify-content: center;
   color: #313639;
   font-size: 9pt;
+  overflow: scroll;
 `;
 const Container = styled.div`
   width: 75%;
   height: 75%;
+  margin-bottom: 50px;
 `;
