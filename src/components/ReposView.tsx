@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 import { getRepos } from '../api/Calls';
 import { IRepoSearch } from '../api/Models';
 import styled from 'styled-components';
+import { Card, Container, RowItem } from './ResultsView';
+import moment from 'moment';
 
 /**
  * For each repository display the repository user
@@ -22,12 +24,32 @@ const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
   console.log('data', data);
 
   return (
-    <div>
-      {data.items.map((repo) => (
-        <div>{repo.name}</div>
+    <Container>
+      {data.items.map((repo, i) => (
+        <RowItem key={i}>
+          <Card>
+            <h2>{repo.name}</h2>
+            <Description>{repo.description}</Description>
+            <div>Number of Forks: {repo.forks_count}</div>
+            <div>Created: {moment(repo.created_at).format('MMM Do YY')}</div>
+            <div>Owner: {repo.owner.login}</div>
+            <Link href={repo.html_url} target="_blank">
+              {repo.html_url}
+            </Link>
+          </Card>
+        </RowItem>
       ))}
-    </div>
+    </Container>
   );
 };
 
 export default ReposView;
+
+const Description = styled.div`
+  text-align: center;
+  margin-bottom: 10px;
+`;
+const Link = styled.a`
+  margin-top: 10px;
+  text-align: center;
+`;
