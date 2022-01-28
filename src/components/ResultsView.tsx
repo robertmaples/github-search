@@ -2,6 +2,7 @@ import React from 'react';
 import { SearchSpace } from '../api/Models';
 import UsersView from './UsersView';
 import ReposView from './ReposView';
+import styled from 'styled-components';
 
 interface IProps {
   searchStr: string;

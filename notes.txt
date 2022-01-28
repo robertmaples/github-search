@@ -37,3 +37,6 @@ Refreshing of query completed, search input implemented (without throttling for 
 x - Refactoring code base 
 x - Implement repo search logic
 - Build out results UI
+
+Location only available for user endpoint, not in search. 
+Leaving out for now.

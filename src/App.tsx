@@ -47,4 +47,3 @@ const Container = styled.div`
   width: 75%;
   height: 75%;
 `;
-const Results = styled.div``;
