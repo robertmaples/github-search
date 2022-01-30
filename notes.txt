@@ -51,9 +51,9 @@ Results UI completed for users and repos. Working on implementing debounce
 1/30
 
 TODO:
-- Implement debounce
 - Implement loading/error screens
 - Complete README
+- links on repos for narrowed screen
 
 Future work:
 - "Showing 30 of 1000 result"

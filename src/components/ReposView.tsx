@@ -3,25 +3,20 @@ import { useQuery } from 'react-query';
 import { getRepos } from '../api/Calls';
 import { IRepoSearch } from '../api/Models';
 import styled from 'styled-components';
-import { Card, Container, RowItem } from './ResultsView';
+import { Card, Container, IntermediateContainer, RowItem } from './ResultsView';
 import moment from 'moment';
 
-/**
- * For each repository display the repository user
- * details returned from API and the repository name,
- * author, stars and other statistics below it.
- */
 interface IReposViewProps {
   searchStr: string;
 }
 const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
   const { isLoading, error, data } = useQuery<any, Error, IRepoSearch>(searchStr, () => getRepos(searchStr));
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred while fetching repos.{error.message}</div>;
-  if (!data) return <div>Data not available for this search.</div>;
-
-  console.log('data', data);
+  if (isLoading) return <IntermediateContainer>Loading...</IntermediateContainer>;
+  if (error)
+    return <IntermediateContainer>An error occurred while fetching repos.{error.message}</IntermediateContainer>;
+  if (!data || data.items.length === 0)
+    return <IntermediateContainer>Data not available for this search.</IntermediateContainer>;
 
   return (
     <Container>

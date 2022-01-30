@@ -10,9 +10,9 @@ interface IProps {
   inputLoading: boolean;
 }
 const ResultsView: React.FC<IProps> = ({ searchStr, searchSpace, inputLoading }) => {
-  if (searchStr.length === 0) return <div>Results will appear here!</div>;
+  if (searchStr.length === 0) return <IntermediateContainer>Results will appear here!</IntermediateContainer>;
 
-  if (inputLoading) return <div>Loading...</div>;
+  if (inputLoading) return <IntermediateContainer>Loading...</IntermediateContainer>;
 
   return searchSpace === SearchSpace.USERS ? <UsersView searchStr={searchStr} /> : <ReposView searchStr={searchStr} />;
 };
@@ -42,4 +42,12 @@ export const Card = styled.div`
   padding: 20px;
   margin-left: 10px;
   margin-right: 10px;
+`;
+export const IntermediateContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  font-size: 13pt;
 `;
