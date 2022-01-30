@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getUsers } from '../api/Calls';
 import { IUserSearch } from '../api/Models';
 import styled from 'styled-components';
-import { Container, RowItem, Card, IntermediateContainer } from '../components/ResultsView';
+import { Container, RowItem, Card, IntermediateContainer, WrappedText } from '../components/ResultsView';
 
 interface IUsersViewProps {
   searchStr: string;
@@ -14,7 +14,7 @@ const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
   if (isLoading) return <IntermediateContainer>Loading...</IntermediateContainer>;
   if (error)
     return <IntermediateContainer>An error occurred while fetching users.{error.message}</IntermediateContainer>;
-  if (!data || data.items.length === 0)
+  if (!data || !data.items || data.items.length === 0)
     return <IntermediateContainer>Data not available for this search.</IntermediateContainer>;
 
   return (
@@ -23,11 +23,15 @@ const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
         <RowItem key={index}>
           <Card>
             <Avatar src={user.avatar_url} alt="user avatar" />
-            <h2>{user.login}</h2>
+            <WrappedText>
+              <h2>{user.login}</h2>
+            </WrappedText>
             <Score>Score: {user.score}</Score>
-            <a href={user.html_url} target="_blank">
-              {user.html_url}
-            </a>
+            <WrappedText>
+              <a href={user.html_url} target="_blank">
+                {user.html_url}
+              </a>
+            </WrappedText>
           </Card>
         </RowItem>
       ))}
