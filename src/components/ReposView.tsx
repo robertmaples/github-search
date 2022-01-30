@@ -32,7 +32,7 @@ const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
             <Description>{repo.description}</Description>
             <div>Number of Forks: {repo.forks_count}</div>
             <div>Created: {moment(repo.created_at).format('MMM Do YY')}</div>
-            <div>Owner: {repo.owner.login}</div>
+            <div>Owner: {repo.owner ? repo.owner.login : 'N/A'}</div>
             <Link href={repo.html_url} target="_blank">
               {repo.html_url}
             </Link>

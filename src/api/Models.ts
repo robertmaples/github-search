@@ -90,7 +90,7 @@ export interface IRepo {
 	notifications_url: string;
 	open_issues: number;
 	open_issues_count: number;
-	owner: IUser;
+	owner?: IUser;
 	private: boolean;
 	pulls_url: string;
 	pushed_at: string;

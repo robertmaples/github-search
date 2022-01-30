@@ -36,7 +36,25 @@ Refreshing of query completed, search input implemented (without throttling for 
 
 x - Refactoring code base 
 x - Implement repo search logic
-- Build out results UI
+x - Build out results UI
 
 Location only available for user endpoint, not in search. 
 Leaving out for now.
+
+1/27
+
+Results UI completed for users and repos. Working on implementing debounce
+
+- Implement debounce
+- Implement loading/error screens
+
+1/30
+
+TODO:
+- Implement debounce
+- Implement loading/error screens
+- Complete README
+
+Future work:
+- "Showing 30 of 1000 result"
+- Pagination

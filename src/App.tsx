@@ -5,26 +5,34 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { SearchSpace } from './api/Models';
 import Search from './components/Search';
 import ResultsView from './components/ResultsView';
+import _ from 'lodash';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [searchSpace, setSearchSpace] = useState<SearchSpace>(SearchSpace.USERS);
   const [searchStr, setSearchStr] = useState<string>('');
+  const [inputLoading, setInputLoading] = useState<boolean>(false);
 
   const handleSearchSpace = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchSpace(Number(event.target.value));
   };
   const handleSearchStr = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchStr(event.target.value);
+    handleInputLoading(false);
   };
+  const handleInputLoading = (isLoading: boolean) => setInputLoading(isLoading);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Page>
         <Container>
-          <Search handleSearchSpace={handleSearchSpace} handleSearchStr={handleSearchStr} />
-          <ResultsView searchSpace={searchSpace} searchStr={searchStr} />
+          <Search
+            handleInputLoading={handleInputLoading}
+            handleSearchSpace={handleSearchSpace}
+            handleSearchStr={handleSearchStr}
+          />
+          <ResultsView inputLoading={inputLoading} searchSpace={searchSpace} searchStr={searchStr} />
         </Container>
       </Page>
     </QueryClientProvider>

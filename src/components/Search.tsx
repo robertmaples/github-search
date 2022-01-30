@@ -2,13 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { SearchSpace } from '../api/Models';
 import GithubLogo from '../resources/github-logo.png';
+import _ from 'lodash';
+
+const DEBOUNCE_TIME_MS = 3000;
 
 interface IProps {
   handleSearchSpace: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleSearchStr: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputLoading: (isLoading: boolean) => void;
 }
 
-const Search: React.FC<IProps> = ({ handleSearchSpace, handleSearchStr }) => {
+const Search: React.FC<IProps> = ({ handleSearchSpace, handleSearchStr, handleInputLoading }) => {
+  const debouncedSearch = _.debounce(handleSearchStr, DEBOUNCE_TIME_MS);
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleInputLoading(true);
+    debouncedSearch(event);
+  };
+
   return (
     <Container>
       <div>
@@ -20,7 +31,7 @@ const Search: React.FC<IProps> = ({ handleSearchSpace, handleSearchStr }) => {
           </div>
         </SearchDescriptor>
         <div>
-          <Input onChange={handleSearchStr} type={'search'} placeholder="Start typing to search .." />
+          <Input onChange={onChangeInput} type={'search'} placeholder="Start typing to search .." />
           <Dropdown onChange={handleSearchSpace}>
             <option value={SearchSpace.USERS}>Users</option>
             <option value={SearchSpace.REPOS}>Repositories</option>
