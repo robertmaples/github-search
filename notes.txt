@@ -2,7 +2,7 @@ High-level plan
 1) Create Input UI
 2) Get call
 3) Connect data to UI
-4) Built out Result UI
+4) Build out Result UI
 
 Questions
  - CSS in JS, includes styled components?

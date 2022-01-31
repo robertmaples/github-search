@@ -4,7 +4,7 @@ import { SearchSpace } from '../api/Models';
 import GithubLogo from '../resources/github-logo.png';
 import _ from 'lodash';
 
-const DEBOUNCE_TIME_MS = 1000;
+const DEBOUNCE_TIME_MS = 1500;
 
 interface IProps {
   handleSearchSpace: (event: React.ChangeEvent<HTMLSelectElement>) => void;

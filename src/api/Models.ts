@@ -5,7 +5,7 @@ export enum SearchSpace {
 
 export interface IUserSearch {
   incomplete_results: boolean;
-  items: IUser[];
+  items?: IUser[];
   total_count: number;
 }
 export interface IUser {
@@ -31,7 +31,7 @@ export interface IUser {
 }
 export interface IRepoSearch {
   incomplete_results: boolean;
-  items: IRepo[];
+  items?: IRepo[];
   total_count: number;
 }
 export interface IRepo {
