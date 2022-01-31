@@ -5,7 +5,7 @@ users and repositories across Github.
 
 ## High-level Implementation Plan
 
-1. Build out the UI for the search component of the application:
+### Build out the UI for the search component of the application:
 
 - Input
 - Dropdown
@@ -16,7 +16,7 @@ This helps establish styling and provides a good jumping off point for accessing
 Notes:
 Used styled components for CSS with the assumption this falls under the category of 'CSS in JS.' It fits the style of React JSX and keeps the repository all in javascript. It is also using real CSS sytax.
 
-2. Implement API calls:
+### Implement API calls:
 
 - Create API calls for user and repo using the github search API
 - Build out models
@@ -25,7 +25,7 @@ This is where the bulk of structure of the app takes shape, and the first refact
 
 Notes: Decided use React Query for fetching API data. Redux Query is incompatible with the latest version of React (17) and doesn't appear to be actively maintained; last commit was 15 months ago on a config, and 2 years ago fo rmeaningful source code commits.
 
-3. Build out the Results UI:
+### Build out the Results UI:
 
 - Repo view
 - User view
@@ -36,7 +36,7 @@ The end of this stage marks the first 'working' version of the app as described 
 Notes:
 The search api returns a truncated version of the User and Repo models returned by the users/ and repos/ endpoints. Therefore, fields such as Location on User are unavailable. A second call is needed to grab more detailed information of both models - it is not implemented in this version of the application.
 
-4. Cover the edges:
+### Cover the edges:
 
 - Debouncing
 - Sharpen the UI
@@ -52,12 +52,16 @@ From Github API docs:
 
 Current implementation of debouncing is set to a timer, but is naive. Better error messaging can be displayed to let the user know rate limits have been hit, as well as more debounding features (i.e. min-characters input).
 
-## Future Work
+### Future Work
 
 Testing: API calls, error and loading states.
+
 Pagination: Only the top 30 results are currently displayed.
+
 Sorting: Another dropdown for sorting results based on a metric.
+
 Authentication: Users login to avoid rate-limiting on both Github API and Search API
+
 Implement users/ and repos/ endpoint to gather and display more information for each model.
 
 # Getting Started with Create React App
