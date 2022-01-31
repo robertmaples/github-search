@@ -54,14 +54,13 @@ Current implementation of debouncing is set to a timer, but is naive. Better err
 
 ## Folder Structure
 
-.  
-├── api # Contains API calls and return types for user and repos
+api/ # Contains API calls and return types for user and repos
 
-├── components # All views
+components/ # All views
 
-├── resources # logos, etc
+resources/ # logos, etc
 
-└── App.tsx # Main entry point
+App.tsx # Main entry point
 
 ### Future Work
 
