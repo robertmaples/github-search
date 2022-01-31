@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getRepos } from '../api/Calls';
 import { IRepoSearch } from '../api/Models';
 import styled from 'styled-components';
-import { Card, Container, IntermediateContainer, RowItem, WrappedText } from './ResultsView';
+import { Card, Container, IntermediateContainer, RowItem } from './ResultsView';
 import moment from 'moment';
 
 interface IReposViewProps {
@@ -52,6 +52,19 @@ const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
 
 export default ReposView;
 
+const WrappedText = styled.div`
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  width: -webkit-fill-available;
+  text-align: center;
+`;
 const Description = styled(WrappedText)`
   text-align: center;
   margin-bottom: 10px;

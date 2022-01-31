@@ -43,19 +43,6 @@ export const Card = styled.div`
   margin-left: 10px;
   margin-right: 10px;
 `;
-export const WrappedText = styled.div`
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-  width: -webkit-fill-available;
-  text-align: center;
-`;
 export const IntermediateContainer = styled.div`
   height: 100%;
   width: 100%;

@@ -57,3 +57,16 @@ const Container = styled.div`
   height: 75%;
   margin-bottom: 50px;
 `;
+export const WrappedText = styled.div`
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  width: -webkit-fill-available;
+  text-align: center;
+`;

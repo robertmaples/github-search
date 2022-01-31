@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { getUsers } from '../api/Calls';
 import { IUserSearch } from '../api/Models';
 import styled from 'styled-components';
-import { Container, RowItem, Card, IntermediateContainer, WrappedText } from '../components/ResultsView';
+import { Container, RowItem, Card, IntermediateContainer } from '../components/ResultsView';
 
 interface IUsersViewProps {
   searchStr: string;
@@ -57,4 +57,17 @@ const Avatar = styled.img`
 const Score = styled.div`
   font-size: 11pt;
   margin-bottom: 10px;
+`;
+const WrappedText = styled.div`
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  width: -webkit-fill-available;
+  text-align: center;
 `;
