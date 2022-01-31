@@ -56,8 +56,11 @@ Current implementation of debouncing is set to a timer, but is naive. Better err
 
 .  
 ├── api # Contains API calls and return types for user and repos
+
 ├── components # All views
+
 ├── resources # logos, etc
+
 └── App.tsx # Main entry point
 
 ### Future Work
