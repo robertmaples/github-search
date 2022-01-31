@@ -52,9 +52,19 @@ From Github API docs:
 
 Current implementation of debouncing is set to a timer, but is naive. Better error messaging can be displayed to let the user know rate limits have been hit, as well as more debounding features (i.e. min-characters input).
 
+## Folder Structure
+
+.  
+├── api # Contains API calls and return types for user and repos
+├── components # All views
+├── resources # logos, etc
+└── App.tsx # Main entry point
+
 ### Future Work
 
 Testing: API calls, error and loading states.
+
+Deployment: Looked into gh-pages as a free option, but it requires a public repository. A ton of other options here.
 
 Pagination: Only the top 30 results are currently displayed.
 
