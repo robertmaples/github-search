@@ -13,8 +13,16 @@ const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
   const { isLoading, error, data } = useQuery<any, Error, IRepoSearch>(searchStr, () => getRepos(searchStr));
 
   if (isLoading) return <IntermediateContainer>Loading...</IntermediateContainer>;
-  if (error)
+  if (error) {
+    if (error.message === '403') {
+      return (
+        <IntermediateContainer>
+          You've hit the limit for requests per minute! Please wait a minute before resuming your next search.
+        </IntermediateContainer>
+      );
+    }
     return <IntermediateContainer>An error occurred while fetching repos.{error.message}</IntermediateContainer>;
+  }
   if (!data || !data.items || data.items.length === 0)
     return <IntermediateContainer>Data not available for this search.</IntermediateContainer>;
 
@@ -44,7 +52,7 @@ const ReposView: React.FC<IReposViewProps> = ({ searchStr }) => {
 
 export default ReposView;
 
-const Description = styled.div`
+const Description = styled(WrappedText)`
   text-align: center;
   margin-bottom: 10px;
 `;

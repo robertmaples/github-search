@@ -43,14 +43,6 @@ export const Card = styled.div`
   margin-left: 10px;
   margin-right: 10px;
 `;
-export const IntermediateContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  margin-top: 150px;
-  display: flex;
-  justify-content: center;
-  font-size: 13pt;
-`;
 export const WrappedText = styled.div`
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
@@ -62,5 +54,14 @@ export const WrappedText = styled.div`
   white-space: -o-pre-wrap;
   word-wrap: break-word;
   width: -webkit-fill-available;
+  text-align: center;
+`;
+export const IntermediateContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  font-size: 13pt;
   text-align: center;
 `;

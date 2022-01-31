@@ -12,10 +12,19 @@ const UsersView: React.FC<IUsersViewProps> = ({ searchStr }) => {
   const { isLoading, error, data } = useQuery<any, Error, IUserSearch>(searchStr, () => getUsers(searchStr));
 
   if (isLoading) return <IntermediateContainer>Loading...</IntermediateContainer>;
-  if (error)
+  if (error) {
+    if (error.message === '403') {
+      return (
+        <IntermediateContainer>
+          You've hit the limit for requests per minute! Please wait a minute before resuming your next search.
+        </IntermediateContainer>
+      );
+    }
     return <IntermediateContainer>An error occurred while fetching users.{error.message}</IntermediateContainer>;
-  if (!data || !data.items || data.items.length === 0)
+  }
+  if (!data || !data.items || data.items.length === 0) {
     return <IntermediateContainer>Data not available for this search.</IntermediateContainer>;
+  }
 
   return (
     <Container>
